@@ -1,0 +1,13 @@
+curl 'http://45.15.24.171:8100/api/user/login' \
+  -H 'Connection: keep-alive' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:5050' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Referer: http://localhost:5050/login' \
+  -H 'Accept-Language: en' \
+  --data-binary '{"payload": {"login":"123","password":"123"}}' \
+  --compressed
