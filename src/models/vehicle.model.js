@@ -14,6 +14,12 @@ module.exports = (config, sequelize) => {
     },
     description: {
       type: sequelize.STRING
+    },
+    enable: {
+      type: sequelize.BOOLEAN
+    },
+    changedBy: {
+      type: sequelize.INTEGER
     }
   });
 };

@@ -1,0 +1,13 @@
+curl 'http://localhost:8080/api/vehicle/insert' \
+  -H 'Connection: keep-alive' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:5050' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Referer: http://localhost:5050/login' \
+  -H 'Accept-Language: en' \
+  --data-binary '{"safety": {"userId": "1", "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IjEyMyIsInBhc3N3b3JkIjoiOTViMDYwOTgwNzYyNjYwZWM5YTE1MjYwYWI3MzE0NGRkYmRhMTRjZDRmNDFiOGVlZmIxZDcwY2E3Nzg1MDFkNGViOGU5NjcyMzY0ZGZiYjA1MjFjOGQ2ZTQ3YmNjNzVmN2I5Zjc3ZTBmZjIxNGM3ODkyNWEzMGI0ZGQ3YzZjMTYiLCJpYXQiOjE2MTM0NDA3ODQsImV4cCI6MTYxMzQ2MjM4NH0.WXvxlqb25zjfTs0P8L8mKQZ3Xbv5pnQUchPv9i8J9Ow"}, "payload": {"companyId": "1", "model": "test", "plate": "test", "color": "test", "description": "test", "enable": "true"}}' \
+  --compressed

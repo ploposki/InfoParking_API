@@ -8,7 +8,7 @@ const body   = require('body-parser');
 const exp    = require('express');
 const app    = exp();
 
-app.set('port', process.env.PORT || 8100);
+app.set('port', process.env.PORT || 8080);
 
 app.use(method());
 app.use(serve('./site_content'));

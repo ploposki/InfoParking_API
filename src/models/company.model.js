@@ -35,6 +35,9 @@ module.exports = (config, sequelize) => {
     },
     enable: {
       type: sequelize.BOOLEAN
+    },
+    changedBy: {
+      type: sequelize.INTEGER
     }
   });
 };

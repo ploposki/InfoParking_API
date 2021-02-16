@@ -43,6 +43,73 @@ exports.search = (req, res) => {
   });
 };
 
+exports.insert = (req, res) => {
+
+  auth.check(req, res, (data) => {
+    company.findOrCreate({
+      where: (data.companyId == 1) ? {
+        registerNumber:      req.body.payload.registerNumber
+      } : {
+        id:                  data.companyId
+      },
+      defaults: {
+        name:                req.body.payload.name,
+        businessName:        req.body.payload.businessName,
+        registerNumber:      req.body.payload.registerNumber,
+        registerStateNumber: req.body.payload.registerStateNumber,
+        address:             req.body.payload.address,
+        district:            req.body.payload.district,
+        city:                req.body.payload.city,
+        state:               req.body.payload.state,
+        zipcode:             req.body.payload.zipcode,
+        phone:               req.body.payload.phone,
+        email:               req.body.payload.email,
+        enable:              req.body.payload.enable,
+        changedBy:           data.id
+      }
+    }).then(value => {
+      if (JSON.parse(value.toString().split(',')[1])) {
+        res.status(200).send({
+          message: "Company created successfully."
+        });
+      }
+      else {
+        company.update({ 
+          name:                req.body.payload.name,
+          businessName:        req.body.payload.businessName,
+          address:             req.body.payload.address,
+          district:            req.body.payload.district,
+          city:                req.body.payload.city,
+          state:               req.body.payload.state,
+          zipcode:             req.body.payload.zipcode,
+          phone:               req.body.payload.phone,
+          email:               req.body.payload.email,
+          enable:              req.body.payload.enable,
+          changedBy:           data.id
+        }, {
+          where: (data.companyId == 1) ? {
+            registerNumber:    req.body.payload.registerNumber
+          } : {
+            id:                data.companyId
+          },
+        }).then(() => {
+          res.status(200).send({
+            message: "Company updated successfully."
+          });
+        }).catch(err => {
+          res.status(500).send({
+            message: err.message || "Some error occurred while updating the Company."
+          });
+        });
+      }
+    }).catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the Company."
+      });
+    });
+  });
+};
+
 exports.default = (obj) => {
   company.findOrCreate({
     where: {

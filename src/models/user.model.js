@@ -23,6 +23,9 @@ module.exports = (config, sequelize) => {
     },
     jwt: {
       type: sequelize.JSON
+    },
+    changedBy: {
+      type: sequelize.INTEGER
     }
   });
 };

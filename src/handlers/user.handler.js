@@ -84,10 +84,13 @@ exports.search = (req, res) => {
 
 exports.insert = (req, res) => {
 
-  auth.check(req, res, (_data) => {
+  auth.check(req, res, (data) => {
     user.findOrCreate({
-      where: {
+      where: (data.companyId == 1) ? {
         companyId:   req.body.payload.companyId,
+        login:       req.body.payload.login,
+      } : {
+        companyId:   data.companyId,
         login:       req.body.payload.login,
       },
       defaults: {
@@ -103,7 +106,8 @@ exports.insert = (req, res) => {
           64,
           'sha512'
         ).toString('hex'),
-        enable:      req.body.payload.enable
+        enable:      req.body.payload.enable,
+        changedBy:   data.id
       }
     }).then(value => {
       if (JSON.parse(value.toString().split(',')[1])) {
@@ -125,10 +129,14 @@ exports.insert = (req, res) => {
             64,
             'sha512'
           ).toString('hex'),
-          enable:      req.body.payload.enable
+          enable:      req.body.payload.enable,
+          changedBy:   data.id
         }, {
-          where: {
+          where: (data.companyId == 1) ? {
             companyId: req.body.payload.companyId,
+            login:     req.body.payload.login,
+          } : {
+            companyId: data.companyId,
             login:     req.body.payload.login,
           },
         }).then(() => {
