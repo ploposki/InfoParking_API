@@ -1,8 +1,8 @@
 const db      = require('../configs/db.config');
 const auth    = require('./authorization.handler');
 
-const vehicle = db.vehicle;
-const company = db.company;
+const operation = db.operation;
+const company   = db.company;
 
 exports.search = (req, res) => {
 
@@ -12,14 +12,14 @@ exports.search = (req, res) => {
         id: data.companyId
       }
     }).then(c => {
-      vehicle.findAll({
+      operation.findAll({
         where: (data.companyId == 1) ? {} : {
           companyId: data.companyId
         }
-      }).then(v => {
+      }).then(o => {
 
-        let vehicle = [];
-        let company = [];
+        let operation = [];
+        let company   = [];
 
         if(c) {
           c.forEach(x => {
@@ -31,24 +31,23 @@ exports.search = (req, res) => {
           });
         }
 
-        if(v) {
-          v.forEach(x => {
-            vehicle.push({
+        if(o) {
+          o.forEach(x => {
+            operation.push({
               id:          x.id,
               companyId:   x.companyId,
-              model:       x.model,
-              plate:       x.plate,
-              color:       x.color,
-              description: x.description,
+              type:        x.type,
+              time:        x.time,
+              amount:      x.amount,
               enable:      x.enable
             });
           });
         }
 
-        res.status(200).send({vehicle, company});
+        res.status(200).send({operation, company});
       }).catch(err => {
         res.status(500).send({
-          message: err.message || "Some error occurred while retrieving the Vehicle."
+          message: err.message || "Some error occurred while retrieving the Operation."
         });
       });
     }).catch(err => {
@@ -62,58 +61,57 @@ exports.search = (req, res) => {
 exports.insert = (req, res) => {
 
   auth.check(req, res, (data) => {
-    vehicle.findOrCreate({
+    operation.findOrCreate({
       where: (data.companyId == 1) ? {
-        plate:       req.body.payload.plate,
+        time:        req.body.payload.time,
         companyId:   req.body.payload.companyId
       } : {
-        plate:       req.body.payload.plate,
+        time:        req.body.payload.time,
         companyId:   data.companyId
       },
       defaults: {
         companyId:   (data.companyId == 1) ? req.body.payload.companyId : data.companyId,
-        model:       req.body.payload.model,
-        plate:       req.body.payload.plate,
-        color:       req.body.payload.color,
-        description: req.body.payload.description,
+        type:        req.body.payload.type,
+        time:        req.body.payload.time,
+        amount:      req.body.payload.amount,
         enable:      req.body.payload.enable,
         changedBy:   data.id
       }
     }).then(value => {
       if (JSON.parse(value.toString().split(',')[1])) {
         res.status(200).send({
-          message: "Vehicle created successfully."
+          message: "Operation created successfully."
         });
       }
       else {
-        vehicle.update({
+        operation.update({
           companyId:   (data.companyId == 1) ? req.body.payload.companyId : data.companyId,
-          model:       req.body.payload.model,
-          color:       req.body.payload.color,
-          description: req.body.payload.description,
+          type:        req.body.payload.type,
+          time:        req.body.payload.time,
+          amount:      req.body.payload.amount,
           enable:      req.body.payload.enable,
           changedBy:   data.id
         }, {
           where: (data.companyId == 1) ? {
-            plate:     req.body.payload.plate,
-            companyId: req.body.payload.companyId
+            time:        req.body.payload.time,
+            companyId:   req.body.payload.companyId
           } : {
-            plate:     req.body.payload.plate,
-            companyId: data.companyId
+            time:        req.body.payload.time,
+            companyId:   data.companyId
           },
         }).then(() => {
           res.status(200).send({
-            message: "Vehicle updated successfully."
+            message: "Operation updated successfully."
           });
         }).catch(err => {
           res.status(500).send({
-            message: err.message || "Some error occurred while updating the Vehicle."
+            message: err.message || "Some error occurred while updating the Operation."
           });
         });
       }
     }).catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the Vehicle."
+        message: err.message || "Some error occurred while creating the Operation."
       });
     });
   });

@@ -15,8 +15,10 @@ module.exports = db = {
   sequelize:  sequelize,
   config:     config,
 
-  access:     require('../models/access.model')   (config, sequelize),
-  company:    require('../models/company.model')  (config, sequelize),
-  user:       require('../models/user.model')     (config, sequelize),
-  vehicle:    require('../models/vehicle.model')  (config, sequelize),
+  access:     require('../models/access.model')    (config, sequelize),
+  company:    require('../models/company.model')   (config, sequelize),
+  operation:  require('../models/operation.model') (config, sequelize),
+  parking:    require('../models/parking.model')   (config, sequelize),
+  user:       require('../models/user.model')      (config, sequelize),
+  vehicle:    require('../models/vehicle.model')   (config, sequelize),
 };

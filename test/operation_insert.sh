@@ -1,0 +1,13 @@
+curl 'http://localhost:8080/api/operation/insert' \
+  -H 'Connection: keep-alive' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:5050' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Referer: http://localhost:5050/login' \
+  -H 'Accept-Language: en' \
+  --data-binary '{"safety": {"userId": "1", "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IjEyMyIsInBhc3N3b3JkIjoiOTViMDYwOTgwNzYyNjYwZWM5YTE1MjYwYWI3MzE0NGRkYmRhMTRjZDRmNDFiOGVlZmIxZDcwY2E3Nzg1MDFkNGViOGU5NjcyMzY0ZGZiYjA1MjFjOGQ2ZTQ3YmNjNzVmN2I5Zjc3ZTBmZjIxNGM3ODkyNWEzMGI0ZGQ3YzZjMTYiLCJpYXQiOjE2MTM1MDQ0OTMsImV4cCI6MTYxMzUyNjA5M30.jKnSghMnLURO3hDa-KCxlzd_uFK_hk1n4Qe4kSDdVpg"}, "payload": {"companyId": "1", "type": "period", "time": "01:30:00", "amount": "10.25", "enable": "true"}}' \
+  --compressed
